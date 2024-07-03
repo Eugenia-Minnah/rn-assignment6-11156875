@@ -1,4 +1,4 @@
-import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet } from 'react-native';
+import { View, Text, FlatList, Image, TouchableOpacity, StyleSheet, Pressable } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
@@ -28,12 +28,13 @@ export default function CartScreen() {
         <Text style={styles.cartItemName}>{item.name}</Text>
         <Text style={styles.cartItemDescription}>Recycle Boucle Knit Cardigan Pink</Text>
         <Text style={styles.cartItemPrice}>${item.price}</Text>
-      </View>
+        </View>
       <TouchableOpacity style={styles.removeButton} onPress={() => removeFromCart(item)}>
         <Image source={require('../assets/remove.png')} style={styles.removeButtonImage} />
       </TouchableOpacity>
     </View>
   );
+  
   return (
     <View style={styles.container}>
       <View style={styles.home}>
@@ -48,6 +49,16 @@ export default function CartScreen() {
         keyExtractor={(item) => item.id}
         renderItem={renderCartItem}
       />
+      <View style={styles.cost}>
+        <Text style={styles.Total}> EST. TOTAL</Text>
+        <Text style={styles.Amount}>$360</Text>
+      </View>
+      <View style={{ alignItems: 'center' }}>
+        <Pressable style={styles.CheckOutButton}>
+          <Image source={require('../assets/shoppingBag.png')} style={styles.ButtonImage}/>
+          <Text style={{ color: 'white', fontSize: 22, top: -2, left: 20 , paddingBottom: 5, fontFamily:'Times New Roman'}}>CHECKOUT</Text>
+        </Pressable>
+      </View>
     </View>
 
   );
@@ -56,7 +67,7 @@ export default function CartScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 15,
+    padding: 10,
   },
   home:{
     height:150,
@@ -100,7 +111,28 @@ const styles = StyleSheet.create({
     height: 25,
     top:50,
   },
-  shoppingBagImage:{
-    alignItems: 'center'
+  CheckOutButton:{
+    alignItems: 'center',
+    backgroundColor: 'black',
+    width: '105%',
+    paddingVertical: 15,
+    flexDirection: 'row',
+    justifyContent: 'center',
+  },
+  ButtonImage:{
+    top: -5,
+    tintColor: 'white',
+  },
+  cost:{
+    flexDirection:'row',
+    justifyContent: 'space-between',
+    paddingBottom: 10
+  },
+  Total:{
+    fontSize: 16,
+  },
+  Amount:{
+    color:'#FF8000',
+    fontSize: 20,
   },
 });
